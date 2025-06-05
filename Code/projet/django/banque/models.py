@@ -28,7 +28,7 @@ class Acteur(models.Model):
         chaine = f"Son nom est : {self.nom} et son prenom : {self.prenom}, ayant : {self.age} ans et comme photos : {self.photos}."
         return chaine
     
-class Personnes(models.Model):
+class Personne(models.Model):
     pseudo = models.CharField(max_length=100)
     nom_prenom = models.CharField(max_length=100)
     mail = models.CharField(max_length=100)
@@ -38,7 +38,7 @@ class Personnes(models.Model):
         chaine = f"Son pseudo est : {self.nom} ayant comme sdescriptif : {self.descriptif}."
         return chaine
 
-class Commentaires(models.Model):
+class Commentaire(models.Model):
     film = models.CharField(max_length=100)
     personnes = models.CharField(max_length=100)
     note = models.CharField(max_length=100)

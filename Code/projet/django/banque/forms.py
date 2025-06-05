@@ -35,9 +35,9 @@ class ActeurForm(ModelForm):
             'photos' : _('photos'),
         }
 
-class PersonnesForm(ModelForm):
+class PersonneForm(ModelForm):
     class Meta:
-        model = models.Personnes
+        model = models.Personne
         fields = ('pseudo', 'nom_prenom', 'mail','mot_de_passe','type')
         labels = {
             'pseudo' : _('pseudo') ,
@@ -47,9 +47,9 @@ class PersonnesForm(ModelForm):
             'type' : _('type'),
         }
 
-class CommentairesForm(ModelForm):
+class CommentaireForm(ModelForm):
     class Meta:
-        model = models.Commentaires
+        model = models.Commentaire
         fields = ('film', 'personnes', 'note','commentaire','date')
         labels = {
             'film' : _('film') ,
