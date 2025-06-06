@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}CRUD django banque de film{% endblock %}</title>
+    
+</head>
+<body>
+    <header>
+        <h1>{% block header %}Bienvenue sur le site de la banque de film{% endblock %}</h1>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Le contenu spécifique à chaque page ira ici -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Banque de films</p>
+    </footer>
+</body>
+</html>
