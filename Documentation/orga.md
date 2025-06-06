@@ -20,3 +20,17 @@ Permet d'afficher les informations d'une entité, cette page n'est pas nécessai
 Contient le formulaire d'ajout d'une entité, est nécessaire pour tout les CRUD
 
 ###### modifier.html
+
+Permet de modifier les informations d'une entité, est nécessaire pour tout les CRUD
+Est basé sur le formulaire d'ajout
+
+###### supprimer.html
+
+Permet de supprimer une entité, est nécessaire pour tout les CRUD
+
+###### afficher_all.html
+
+Permet d'afficher l'ensemble des entités d'une table, peut avoir besoin d'un id pour afficher par ex : 
+- tout les films d'un acteur
+- tout les films d'un genre
+- tout les commentaires d'un film
