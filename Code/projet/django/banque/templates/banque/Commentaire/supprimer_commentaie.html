@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Suppression d'une guitare{% endblock %}
+{% block header %}Supprimer une guitare{% endblock %}
+
+{% block content %}
+    <p>Voulez-vous supprimer le film suivant {{Film}} ? ID : {{id}}</p>
+    <form method="post" action="/Film/supprimer_film/{{id}}/">
+        {% csrf_token %}
+        <input type="submit" value="Supprimer">
+    </form>
+{% endblock %}
