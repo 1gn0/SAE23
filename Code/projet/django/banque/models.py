@@ -1,5 +1,5 @@
 from django.db import models
-import bleach
+#import bleach
 
 class Categorie_Film(models.Model):
     nom = models.CharField(max_length=100)
