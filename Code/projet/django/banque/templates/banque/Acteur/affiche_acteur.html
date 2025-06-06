@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Stock d'acteur{% endblock %}
+{% block header %}Liste des acteurs dans la banque{% endblock %}
+
+{% block content %}
+    <a class="btn_generic" href="/Acteur/ajout_acteur/{{id}}/">Ajouter un enregistrement</a>
+    <main class="flex_conteneur_all">
+        {% for donnees in liste %}
+            <div class="flex_item_all">
+                <div class="traitement">
+                    {{donnees.id}} : {{donnees|safe}}
+                    <a class="btn_generic" href="/Acteur/modifier_acteur/{{donnees.id}}">Modifier</a>
+                    <a class="btn_generic" href="/Acteur/supprimer_acteur/{{donnees.id}}">Supprimer</a>
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+{% endblock %}
