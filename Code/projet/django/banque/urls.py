@@ -3,14 +3,14 @@ from . import categorie_views
 
 urlpatterns = [
 
-    path('Acteur/modifier_acteur/<int:id>/', views.modifier_acteur),
-    path('Acteur/supprimer_acteur/<int:id>/', views.supprimer_acteur),
-    path('Acteur/ajout_acteur/', views.ajout_acteur),
-    path('Acteur/affiche_acteur/<int:id>/', views.affiche_acteur),
-    path('Acteur/traitement/', views.traitement_acteur),
+    path('Acteur/modifier_acteur/<int:id>/', acteur_views.modifier),
+    path('Acteur/supprimer_acteur/<int:id>/', acteur_views.supprimer),
+    path('Acteur/ajout_acteur/', acteur_views.ajout),
+    path('Acteur/affiche_acteur/<int:id>/', acteur_views.affiche),
+    path('Acteur/traitement/', acteur_views.traitement),
 
 
-    path('Categorie_Film/modifier_categorie_film/<int:id>/', categorie_viewsviews.modifier),
+    path('Categorie_Film/modifier_categorie_film/<int:id>/', categorie_views.views.modifier),
     path('Categorie_Film/supprimer_categorie_film/<int:id>/', categorie_views.supprimer),
     path('Categorie_Film/ajout_categorie_film/', categorie_views.ajout),
     path('Categorie_Film/affiche_categorie_film/<int:id>/', categorie_views.affiche),
@@ -37,7 +37,7 @@ urlpatterns = [
     path('Personne/traitement/', personne_views.traitement),
 
 
-    path('main/', views.main),
+    path('index/', views.index),
 
 
 ]
