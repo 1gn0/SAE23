@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Stock de film{% endblock %}
+{% block header %}Liste des film dans la banque{% endblock %}
+
+{% block content %}
+    <a class="btn_generic" href="/Film/ajout_film/{{id}}/">Ajouter un enregistrement</a>
+    <main class="flex_conteneur_all">
+        {% for donnees in liste %}
+            <div class="flex_item_all">
+                <div class="traitement">
+                    {{donnees.id}} : {{donnees|safe}}
+                    <a class="btn_generic" href="/Film/modifier_film/{{donnees.id}}">Modifier</a>
+                    <a class="btn_generic" href="/Film/supprimer_film/{{donnees.id}}">Supprimer</a>
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+{% endblock %}

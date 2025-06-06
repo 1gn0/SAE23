@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block title %}Modifier un film{% endblock %}
+
+{% block content %}
+    <h1>Modifier une guitare</h1>
+    <form method="post" action="/Film/modifier_film/{{ id }}/">
+        {% csrf_token %}
+        <ul>
+            {{ form.as_ul }}
+        </ul>
+        <input type="submit" value="Enregistrer les modifications">
+    </form>
+    <a class="btn_generic" href="/Film/affiche_film/{{ id }}/">Retour au stock</a>
+{% endblock %}
