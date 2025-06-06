@@ -10,31 +10,31 @@ urlpatterns = [
     path('Acteur/traitement/', views.traitement_acteur),
 
 
-    path('Categorie_Film/modifier_categorie_film/<int:id>/', views.modifier_categorie_film),
-    path('Categorie_Film/supprimer_categorie_film/<int:id>/', views.supprimer_categorie_film),
-    path('Categorie_Film/ajout_categorie_film/', views.ajout_categorie_film),
-    path('Categorie_Film/affiche_categorie_film/<int:id>/', views.affiche_categorie_film),
-    path('Categorie_Film/traitement/', views.traitement_categorie_film),
+    path('Categorie_Film/modifier_categorie_film/<int:id>/', categorie_viewsviews.modifier),
+    path('Categorie_Film/supprimer_categorie_film/<int:id>/', categorie_views.supprimer),
+    path('Categorie_Film/ajout_categorie_film/', categorie_views.ajout),
+    path('Categorie_Film/affiche_categorie_film/<int:id>/', categorie_views.affiche),
+    path('Categorie_Film/traitement/', categorie_views.traitement),
 
-    path('Commentaire/modifier_commentaire/<int:id>/', views.modifier_commentaire),
-    path('Commentaire/supprimer_commentaire/<int:id>/', views.supprimer_commentaire),
-    path('Commentaire/ajout_commentaire/', views.ajout_commentaire),
-    path('Commentaire/affiche_commentaire/<int:id>/', views.affiche_commentaire),
-    path('Commentaire/traitement/', views.traitement_commentaire),
-
-
-    path('Film/modifier_film/<int:id>/', views.modifier_film),
-    path('Film/supprimer_film/<int:id>/', views.supprimer_film),
-    path('Film/ajout_film/', views.ajout_film),
-    path('Film/affiche_film/<int:id>/', views.affiche_film),
-    path('Film/traitement/', views.traitement_film),
+    path('Commentaire/modifier_commentaire/<int:id>/', commentaire_views.modifier),
+    path('Commentaire/supprimer_commentaire/<int:id>/', commentaire_views.supprimer),
+    path('Commentaire/ajout_commentaire/', commentaire_views.ajout),
+    path('Commentaire/affiche_commentaire/<int:id>/', commentaire_views.affiche),
+    path('Commentaire/traitement/', commentaire_views.traitement),
 
 
-    path('Personne/modifier_personne/<int:id>/', views.modifier_personne),
-    path('Personne/supprimer_personne/<int:id>/', views.supprimer_personne),
-    path('Personne/ajout_personne/', views.ajout_personne),
-    path('Personne/affiche_personne/<int:id>/', views.affiche_personne),
-    path('Personne/traitement/', views.traitement_personne),
+    path('Film/modifier_film/<int:id>/', film_views.modifier),
+    path('Film/supprimer_film/<int:id>/', film_views.supprimer),
+    path('Film/ajout_film/', film_views.ajout),
+    path('Film/affiche_film/<int:id>/', film_views.affiche),
+    path('Film/traitement/', film_views.traitement),
+
+
+    path('Personne/modifier_personne/<int:id>/', personne_views.modifier),
+    path('Personne/supprimer_personne/<int:id>/', personne_views.supprimer),
+    path('Personne/ajout_personne/', personne_views.ajout),
+    path('Personne/affiche_personne/<int:id>/', personne_views.affiche),
+    path('Personne/traitement/', personne_views.traitement),
 
 
     path('main/', views.main),
