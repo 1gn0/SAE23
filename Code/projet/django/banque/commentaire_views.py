@@ -34,11 +34,10 @@ def traitement(request, id):
     else:
         return render(request, "banque/commentaire/ajout.html", {"form": form, "id": id})
 
-
-def read(request, id):
-    film = models.Film.objects.get(id=id)
-    return render(request, "banque/commentaire/affiche_commentaire.html", {"film" : film})
-
+def affiche_all(request):
+    list_data = list(models.Film.objects.all())
+    return render(request, "banque/commentaire/affiche_commentaire.html", {"liste" : list_data})
+    
 def modifier(request, id):
     commentaire = models.Commentaire.objects.get(id=id)
     lform = CommentaireForm(commentaire.__dict__)
