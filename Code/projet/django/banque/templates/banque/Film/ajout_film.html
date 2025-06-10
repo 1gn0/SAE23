@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Ajout d'un film{% endblock %}
+{% block header %}Ajouter un film{% endblock %}
+
+{% block content %}
+    <form method="post" action="/Film/traitement/">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit" value="Envoyer les données">
+    </form>
+{% endblock %}
