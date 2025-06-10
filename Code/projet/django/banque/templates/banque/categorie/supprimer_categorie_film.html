@@ -5,7 +5,7 @@
 
 {% block content %}
     <p>Voulez-vous supprimer la catégorie suivante {{Categorie}} ? ID : {{id}}</p>
-    <form method="post" action="/Categorie/supprimer_categorie/{{id}}/">
+    <form method="post" action="/Categorie_Film/supprimer_categorie/{{id}}/">
         {% csrf_token %}
         <input type="submit" value="Supprimer">
     </form>

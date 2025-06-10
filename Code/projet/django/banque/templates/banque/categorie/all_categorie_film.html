@@ -1,0 +1,20 @@
+{% extends '../index.html' %}
+{% load static %}
+{% block title %}Liste des catégories{% endblock %}
+{% block header %}Liste des catégories enregistrées{% endblock %}
+
+{% block content %}
+    <a class="btn_generic" href="/banque/Categorie_Film/ajout_categorie_film/">Ajouter un enregistrement</a>    
+    <main class="flex_conteneur_all">
+        {% for donnees in liste %}
+            <div class="flex_item_all">
+                <div class="traitement">
+                    {{donnees.id}} : {{donnees|safe}}
+                    <a class="btn_generic" href="/banque/Categorie_Film/modifier_categorie_film/{{donnees.id}}">Modifier</a>
+                    <a class="btn_generic" href="/banque/Categorie_Film/supprimer_categorie_film/{{donnees.id}}">Supprimer</a>
+                    <a class="btn_generic" href="/banque/Categorie_Film/stock_categorie_film/{{donnees.id}}">Stock</a>
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+{% endblock %}

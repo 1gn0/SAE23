@@ -4,6 +4,7 @@ from . import acteur_views
 from . import film_views
 from . import personne_views
 from . import commentaire_views
+from . import views 
 
 urlpatterns = [
 
@@ -13,12 +14,11 @@ urlpatterns = [
     path('Acteur/affiche_acteur/<int:id>/', acteur_views.affiche_all),
     path('Acteur/traitement/', acteur_views.traitement),
 
-
     path('Categorie_Film/modifier_categorie_film/<int:id>/', categorie_views.modifier),
     path('Categorie_Film/supprimer_categorie_film/<int:id>/', categorie_views.supprimer),
     path('Categorie_Film/ajout_categorie_film/', categorie_views.ajout),
-    path('Categorie_Film/affiche_categorie_film/<int:id>/', categorie_views.affiche_all),
-    path('Categorie_Film/traitement/', categorie_views.traitement),
+    path('Categorie_Film/all_categorie_film/', categorie_views.affiche_all),
+    path('Categorie_Film/traitement/<int:id>/', categorie_views.traitement),
 
     path('Commentaire/modifier_commentaire/<int:id>/', commentaire_views.modifier),
     path('Commentaire/supprimer_commentaire/<int:id>/', commentaire_views.supprimer),
@@ -30,18 +30,18 @@ urlpatterns = [
     path('Film/modifier_film/<int:id>/', film_views.modifier),
     path('Film/supprimer_film/<int:id>/', film_views.supprimer),
     path('Film/ajout_film/', film_views.ajout),
-    path('Film/affiche_film/<int:id>/', film_views.affiche),
+    path('Film/affiche_film/<int:id>/', film_views.affiche_all),
     path('Film/traitement/', film_views.traitement),
 
 
     path('Personne/modifier_personne/<int:id>/', personne_views.modifier),
     path('Personne/supprimer_personne/<int:id>/', personne_views.supprimer),
     path('Personne/ajout_personne/', personne_views.ajout),
-    path('Personne/affiche_personne/<int:id>/', personne_views.affiche),
+    path('Personne/affiche_personne/<int:id>/', personne_views.affiche_all),
     path('Personne/traitement/', personne_views.traitement),
 
 
-    path('', views.index),
+    path('index/', views.index, name="index"),
 
 
 ]
