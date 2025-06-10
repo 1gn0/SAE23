@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import CommentaireForm
+<<<<<<< HEAD
 from . import models
 
 from .models import Commentaire
@@ -18,3 +19,6 @@ def ajout(request):
     else :
         form = CommentaireForm() 
         return render(request,"banque/Commentaire/commentaire.html",{"form" : form})
+=======
+from . import models
+>>>>>>> 098ee0ac360b3761a44810ecc0d5ed569efcfd07
