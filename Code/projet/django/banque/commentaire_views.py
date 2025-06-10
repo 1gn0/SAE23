@@ -51,4 +51,36 @@ def traitement(request, id):
 def read(request, id):
     film = models.Film.objects.get(id=id)
     return render(request, "banque/commentaire/affiche_commentaire.html", {"film" : film})
+<<<<<<< HEAD
 >>>>>>> 8d26062502397acc8161227b8fb45723d01d325b
+=======
+
+def modifier(request, id):
+    commentaire = models.Commentaire.objects.get(id=id)
+    lform = CommentaireForm(commentaire.__dict__)
+    return render(request, "banque/commentaire/modifier_commentaire.html", {"lform" : lform, "id" : id})
+
+def sauvegarder_modif(request, id):
+    n_form = CommentaireForm(request.POST)
+    if n_form.is_valid():
+        sauvegarde = n_form.save(commit=False)
+        sauvegarde.id = id
+        sauvegarde.save()
+        list_data = list(models.Film.objects.all())
+        return render(request, "banque/commentaire/all_commentaire.html", {"liste" : list_data})
+
+def supprimer(request, id):
+    commentaire = models.Commentaire.objects.get(id=id)
+    if n_form.is_valid():
+        sauvegarde = n_form.save(commit=False)
+        sauvegarde.id = id
+        sauvegarde.save()
+        list_data = list(models.Film.objects.all())
+        return render(request, "banque/commentaire/all_commentaire.html", {"liste" : list_data})
+
+def suppression(request, id):
+    commentaire = models.Commentaire.objects.get(id=id)
+    commentaire.delete()
+    list_data = list(models.Film.objects.all())
+    return render(request, "banque/commentaire/all_commentaire.html", {"liste" : list_data})
+>>>>>>> 2e34b2ca496337786251209473e6095307066b5a
