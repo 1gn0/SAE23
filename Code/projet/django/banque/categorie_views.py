@@ -12,34 +12,27 @@ def ajout(request):
         if form.is_valid():
             Categorie_Film= form.save() 
             list_data = list(models.Categorie_Film.objects.all())
-            return render(request, "banque/Categorie/all_categorie.html", {"liste" : list_data})
-        else:
-            return render(request,"banque/Categorie/ajout_categorie.html",{"form": form})
-    else :
-        form = Categorie_FilmForm() 
-<<<<<<< HEAD
-        return render(request,"banque/Categorie/ajout_categorie.html",{"form" : form})
-        
-=======
-        return render(request,"banque/categorie/ajout_categorie.html",{"form" : form})
+            return render(request,"banque/Categorie/ajout_categorie.html",{"form" : form})
+        else :       
+            return render(request,"banque/Categorie/ajout_categorie.html",{"form" : form})
         
 def traitement(request, id):
     lform = Categorie_FilmForm(request.POST)
     if lform.is_valid():
         categorie = lform.save()
         list_data = list(models.Categorie_Film.objects.all())
-        return render(request, "banque/categorie/all_categorie.html", {"liste" : list_data})
+        return render(request, "banque/Categorie/all_categorie.html", {"liste" : list_data})
     else:
-        return render(request,"banque/categorie/ajout_categorie.html",{"form": lform})
+        return render(request,"banque/Categorie/ajout_categorie.html",{"form": lform})
 
 def affiche_all(request):
     list_data = list(models.Categorie_Film.objects.all())
-    return render(request, "banque/categorie/all_categorie.html", {"liste" : list_data})
+    return render(request, "banque/Categorie/all_categorie.html", {"liste" : list_data})
 
 def modifier(request, id):
     categorie = models.Categorie_Film.objects.get(id=id)
     lform = Categorie_FilmForm(categorie.__dict__)
-    return render(request, "banque/categorie/modifier_categorie.html", {"lform" : lform, "id" : id})
+    return render(request, "banque/Categorie/modifier_categorie.html", {"lform" : lform, "id" : id})
 
 def sauvegarder_modif(request, id):
     n_form = Categorie_FilmForm(request.POST)
@@ -48,15 +41,14 @@ def sauvegarder_modif(request, id):
         sauvegarde.id = id
         sauvegarde.save()
         list_data = list(models.Magasin.objects.all())
-        return render(request, "banque/categorie/all_categorie.html", {"liste" : list_data})
+        return render(request, "banque/Categorie/all_categorie.html", {"liste" : list_data})
 
 def supprimer(request, id):
     categorie = models.Categorie_Film.objects.get(id=id)
     lform = Categorie_FilmForm(categorie.__dict__)
-    return render(request, "banque/categorie/supprimer_categorie.html", {"lform" : lform, "id" : id})
+    return render(request, "banque/Categorie/supprimer_categorie.html", {"lform" : lform, "id" : id})
 
 def stock(request, id):
     categorie = models.Categorie_Film.objects.get(id=id)
     list_data = list(models.Categorie_Film.objects.all())
-    return render(request, "banque/categorie/stock_categorie.html", {"liste" : list_data, "id" : id})
->>>>>>> 098ee0ac360b3761a44810ecc0d5ed569efcfd07
+    return render(request, "banque/Categorie/stock_categorie.html", {"liste" : list_data, "id" : id})
