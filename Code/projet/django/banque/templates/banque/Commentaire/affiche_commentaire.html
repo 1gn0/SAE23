@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Stock de commentaire{% endblock %}
+{% block header %}Liste des commentaires dans la banque{% endblock %}
+
+{% block content %}
+    <a class="btn_generic" href="/Commentaire/ajout_commentaire/{{id}}/">Ajouter un commentaire</a>
+    <main class="flex_conteneur_all">
+        {% for donnees in liste %}
+            <div class="flex_item_all">
+                <div class="traitement">
+                    {{donnees.id}} : {{donnees|safe}}
+                    <a class="btn_generic" href="/Commentaire/modifier_commentaire/{{donnees.id}}">Modifier</a>
+                    <a class="btn_generic" href="/Commentaire/supprimer_commentaire/{{donnees.id}}">Supprimer</a>
+                </div>
+            </div>
+        {% endfor %}
+    </main>
+{% endblock %}

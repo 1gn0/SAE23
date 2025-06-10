@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block title %}Modifier un acteur{% endblock %}
+
+{% block content %}
+    <h1>Modifier un acteur</h1>
+    <form method="post" action="/Acteur/modifier_acteur/{{ id }}/">
+        {% csrf_token %}
+        <ul>
+            {{ form.as_ul }}
+        </ul>
+        <input type="submit" value="Enregistrer les modifications">
+    </form>
+    <a class="btn_generic" href="/Acteur/affiche_acteur/{{ id }}/">Retour au stock</a>
+{% endblock %}

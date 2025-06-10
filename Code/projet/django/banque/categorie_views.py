@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .forms import Categorie_FilmForm
 from . import models
+
+from .models import Categorie_Film
 # Create your views here.
 
 def ajout(request):
@@ -10,11 +12,15 @@ def ajout(request):
         if form.is_valid():
             Categorie_Film= form.save() 
             list_data = list(models.Categorie_Film.objects.all())
-            return render(request, "banque/categorie/all_categorie.html", {"liste" : list_data})
+            return render(request, "banque/Categorie/all_categorie.html", {"liste" : list_data})
         else:
-            return render(request,"banque/categorie/ajout_categorie.html",{"form": form})
+            return render(request,"banque/Categorie/ajout_categorie.html",{"form": form})
     else :
         form = Categorie_FilmForm() 
+<<<<<<< HEAD
+        return render(request,"banque/Categorie/ajout_categorie.html",{"form" : form})
+        
+=======
         return render(request,"banque/categorie/ajout_categorie.html",{"form" : form})
         
 def traitement(request, id):
@@ -53,3 +59,4 @@ def stock(request, id):
     categorie = models.Categorie_Film.objects.get(id=id)
     list_data = list(models.Categorie_Film.objects.all())
     return render(request, "banque/categorie/stock_categorie.html", {"liste" : list_data, "id" : id})
+>>>>>>> 098ee0ac360b3761a44810ecc0d5ed569efcfd07
