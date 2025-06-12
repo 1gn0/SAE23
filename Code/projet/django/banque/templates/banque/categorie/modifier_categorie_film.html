@@ -1,15 +1,15 @@
-{% extends 'index.html' %}
+{% extends '../index.html' %}
 
-{% block title %}Modifier un commentaire{% endblock %}
+{% block title %}Modifier un catégorie{% endblock %}
 
 {% block content %}
-    <h1>Modifier une guitare</h1>
-    <form method="post" action="/Categorie/modifier_categorie/{{ id }}/">
+    <h1>Modifier une catégorie</h1>
+    <form method="post" action="/banque/Categorie_Film/sauvegarder_categorie_film/{{id}}/">
         {% csrf_token %}
         <ul>
-            {{ form.as_ul }}
+            {{ lform.as_ul }}
         </ul>
         <input type="submit" value="Enregistrer les modifications">
     </form>
-    <a class="btn_generic" href="/Categorie/affiche_categorie/{{ id }}/">Retour au stock</a>
+    <a class="btn_generic" href="/banque/Categorie_Film/affiche_categorie_film/{{id}}/">Retour au stock</a>
 {% endblock %}

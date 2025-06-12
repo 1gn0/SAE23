@@ -15,10 +15,13 @@ urlpatterns = [
     path('Acteur/traitement/', acteur_views.traitement),
 
     path('Categorie_Film/modifier_categorie_film/<int:id>/', categorie_views.modifier),
+    path('Categorie_Film/sauvegarder_categorie_film/<int:id>/', categorie_views.sauvegarder_modif),
     path('Categorie_Film/supprimer_categorie_film/<int:id>/', categorie_views.supprimer),
+    path('Categorie_Film/suppression_categorie_film/<int:id>/', categorie_views.suppression),
     path('Categorie_Film/ajout_categorie_film/', categorie_views.ajout),
     path('Categorie_Film/all_categorie_film/', categorie_views.affiche_all),
     path('Categorie_Film/traitement/<int:id>/', categorie_views.traitement),
+    path('Categorie_Film/stock_categorie_film/<int:id>/', categorie_views.stock),
 
     path('Commentaire/modifier_commentaire/<int:id>/', commentaire_views.modifier),
     path('Commentaire/supprimer_commentaire/<int:id>/', commentaire_views.supprimer),

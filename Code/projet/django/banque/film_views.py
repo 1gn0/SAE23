@@ -6,16 +6,24 @@ from .models import Film
 # Create your views here.
 
 def ajout(request):
-    
     if request.method == "POST": 
-        form = FilmForm(request)
+        form = FilmForm(request.POST)
         if form.is_valid():
-            film= form.save() 
+            objet = form.save(commit=False)  
+            objet.save()  
             list_data = list(models.Film.objects.all())
-            return render(request,"banque/Film/ajout_film.html",{"form" : form})
-        else :       
-            return render(request,"banque/Film/ajout_film.html",{"form" : form})
-        
+            return render(request, "banque/film/ajout_film.html", {
+                "liste": list_data,
+                "form": form,
+                "id": objet.id  
+            })
+        else:
+            return render(request, "banque/film/ajout_categorie_film.html", {"form": form})
+    else:
+        form = Categorie_FilmForm()
+        new_obj = models.Categorie_Film.objects.create(nom="")
+        return render(request, "banque/categorie/ajout_categorie_film.html", {"form": form, "id": new_obj.id})
+    
 def traitement(request, id):
     lform = FilmForm(request.POST)
     if lform.is_valid():

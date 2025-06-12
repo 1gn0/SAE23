@@ -5,7 +5,7 @@ class Categorie_Film(models.Model):
     nom = models.CharField(max_length=100)
     descriptif = models.CharField(max_length = 100)
     def __str__(self):
-        chaine = f"Son nom est : {self.nom} ayant comme sdescriptif : {self.descriptif}."
+        chaine = f"Son nom est : {self.nom} ayant comme descriptif : {self.descriptif}."
         return chaine
 
 
@@ -35,7 +35,7 @@ class Personne(models.Model):
     mot_de_passe = models.CharField(max_length=100)
     type = models.CharField(max_length = 100)
     def __str__(self):
-        chaine = f"Son pseudo est : {self.nom} ayant comme sdescriptif : {self.descriptif}."
+        chaine = f"Son pseudo est : {self.nom} ayant comme descriptif : {self.descriptif}."
         return chaine
 
 class Commentaire(models.Model):
