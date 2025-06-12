@@ -9,7 +9,8 @@ def ajout(request):
     if request.method == "POST": 
         form = Categorie_FilmForm(request.POST)
         if form.is_valid():
-            objet = form.save()
+            objet = form.save(commit=False)  
+            objet.save()  
             list_data = list(models.Categorie_Film.objects.all())
             return render(request, "banque/categorie/ajout_categorie_film.html", {
                 "liste": list_data,
