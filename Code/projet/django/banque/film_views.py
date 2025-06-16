@@ -1,62 +1,64 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import FilmForm
 from . import models
 
-from .models import Film
-# Create your views here.
-
-def ajout(request):
-    if request.method == "POST": 
-        form = FilmForm(request.POST)
+def ajout(request, id):
+    """Ajout d'un film à une catégorie donnée (id = id de la catégorie)"""
+    if request.method == "POST":
+        form = FilmForm(request.POST, request.FILES)
         if form.is_valid():
-            objet = form.save(commit=False)  
-            objet.save()  
-            list_data = list(models.Film.objects.all())
-            return render(request, "banque/film/ajout_film.html", {
-                "liste": list_data,
-                "form": form,
-                "id": objet.id  
-            })
+            objet = form.save(commit=False)
+            objet.categorie = models.Categorie_Film.objects.get(id=id)
+            objet.save()
+            return redirect(f"/banque/Film/stock_film/{id}/")
         else:
-            return render(request, "banque/film/ajout_categorie_film.html", {"form": form})
+            return render(request, "banque/film/ajout_film.html", {"form": form, "id": id})
     else:
-        form = Categorie_FilmForm()
-        new_obj = models.Categorie_Film.objects.create(nom="")
-        return render(request, "banque/categorie/ajout_categorie_film.html", {"form": form, "id": new_obj.id})
-    
+        form = FilmForm()
+        return render(request, "banque/film/ajout_film.html", {"form": form, "id": id})
+
 def traitement(request, id):
-    lform = FilmForm(request.POST)
-    if lform.is_valid():
-        film = lform.save()
-        list_data = list(models.Film.objects.all())
-        return render(request, "banque/Film/all_film.html", {"liste" : list_data})
+    form = FilmForm(request.POST, request.FILES)
+    if form.is_valid():
+        film = form.save(commit=False)
+        film.categorie = models.Categorie_Film.objects.get(id=id)
+        film.save()
+        return redirect(f"/banque/Film/stock_film/{id}/")
     else:
-        return render(request,"banque/Film/ajout_film.html",{"form": lform})
+        return render(request, "banque/film/ajout_film.html", {"form": form, "id": id})
 
 def affiche_all(request):
     list_data = list(models.Film.objects.all())
-    return render(request, "banque/Film/all_film.html", {"liste" : list_data})
+    return render(request, "banque/film/all_film.html", {"liste": list_data})
 
 def modifier(request, id):
-    categorie = models.Film.objects.get(id=id)
-    lform = FilmForm(categorie.__dict__)
-    return render(request, "banque/Film/modifier_film.html", {"lform" : lform, "id" : id})
+    film = get_object_or_404(models.Film, id=id)
+    form = FilmForm(instance=film)
+    return render(request, "banque/film/modifier_film.html", {"form": form, "id": id})
 
 def sauvegarder_modif(request, id):
-    n_form = FilmForm(request.POST)
-    if n_form.is_valid():
-        sauvegarde = n_form.save(commit=False)
-        sauvegarde.id = id
-        sauvegarde.save()
-        list_data = list(models.Magasin.objects.all())
-        return render(request, "banque/Film/all_film.html", {"liste" : list_data})
+    film = get_object_or_404(models.Film, id=id)
+    form = FilmForm(request.POST, request.FILES, instance=film)
+    if form.is_valid():
+        form.save()
+        return redirect(f"/banque/Film/stock_film/{film.categorie.id}/")
+    return render(request, "banque/film/modifier_film.html", {"form": form, "id": id})
 
 def supprimer(request, id):
-    film = models.Film.objects.get(id=id)
-    lform = FilmForm(film.__dict__)
-    return render(request, "banque/Film/supprimer_film.html", {"lform" : lform, "id" : id})
+    film = get_object_or_404(models.Film, id=id)
+    if request.method == "POST":
+        cat_id = film.categorie.id
+        film.delete()
+        return redirect(f"/banque/Film/stock_film/{cat_id}/")
+    return render(request, "banque/film/supprimer_film.html", {"film": film})
 
 def stock(request, id):
-    film = models.Film.objects.get(id=id)
-    list_data = list(models.Film.objects.all())
-    return render(request, "banque/Film/stock_film.html", {"liste" : list_data, "id" : id})
+    categorie = get_object_or_404(models.Categorie_Film, id=id)
+    list_data = models.Film.objects.filter(categorie=categorie)
+    return render(request, "banque/film/stock_film.html", {"liste": list_data, "categorie": categorie})
+
+def details(request, id):
+    film = get_object_or_404(models.Film, id=id)
+    list_acteurs = list(models.Acteur.objects.all())
+    list_commentaires = list(models.Commentaire.objects.all())
+    return render(request, "banque/film/details_film.html", {"film": film, "list_acteurs" : list_acteurs, "list_commentaires" : list_commentaires})

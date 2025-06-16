@@ -1,0 +1,15 @@
+{% extends '../index.html' %}
+{% load static %}
+
+{% block title %}Films de la catégorie{% endblock %}
+{% block header %}Films de la catégorie : {{ categorie.nom }}{% endblock %}
+
+{% block content %}
+<ul>
+    {% for film in liste %}
+    <li>{{ film.titre }} ({{ film.annee_sortie }}) — {{ film.realisateur }}</li>
+    {% empty %}
+    <li>Aucun film trouvé dans cette catégorie.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

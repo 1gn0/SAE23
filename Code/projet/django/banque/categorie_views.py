@@ -6,22 +6,24 @@ from .models import Categorie_Film
 # Create your views here.
 
 def ajout(request):
-    if request.method == "POST": 
+    if request.method == "POST":
         form = Categorie_FilmForm(request.POST)
         if form.is_valid():
-            objet = form.save(commit=False)  
-            objet.save()  
+            objet = form.save()
             list_data = list(models.Categorie_Film.objects.all())
             return render(request, "banque/categorie/ajout_categorie_film.html", {
                 "liste": list_data,
-                "form": form,
-                "id": objet.id  
+                "form": Categorie_FilmForm(),  # reset le form
+                "id": objet.id
             })
-        else:
-            return render(request, "banque/categorie/ajout_categorie_film.html", {"form": form})
     else:
         form = Categorie_FilmForm()
-        return render(request, "banque/categorie/ajout_categorie_film.html", {"form": form})
+
+    list_data = list(models.Categorie_Film.objects.all())  # toujours passer la liste
+    return render(request, "banque/categorie/ajout_categorie_film.html", {
+        "form": form,
+        "liste": list_data
+    })
 
     
 def traitement(request, id):
@@ -65,5 +67,5 @@ def suppression(request, id):
 
 def stock(request, id):
     categorie = models.Categorie_Film.objects.get(id=id)
-    list_data = list(models.Categorie_Film.objects.all())
+    list_data = list(models.Film.objects.all())
     return render(request, "banque/film/all_film.html", {"liste" : list_data, "id" : id})

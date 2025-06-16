@@ -11,18 +11,18 @@ class Categorie_FilmForm(ModelForm):
             'descriptif' : _('descriptif'),
         }
 
-
 class FilmForm(ModelForm):
     class Meta:
         model = models.Film
-        fields = ('titre', 'annee_sortie', 'affiche','realisateur','categorie')
+        fields = ('titre', 'annee_sortie', 'affiche', 'realisateur', 'categorie')
         labels = {
-            'titre' : _('titre') ,
-            'annee_sortie' : _('annee_sortie'),
-            'affiche' : _('affiche'),
-            'realisateur' : _('realisateur'),
-            'categorie' : _('categorie'),
+            'titre': _('titre'),
+            'annee_sortie': _('annee_sortie'),
+            'affiche': _('affiche'),
+            'realisateur': _('realisateur'),
+            'categorie': _('categorie'),
         }
+
 
 class ActeurForm(ModelForm):
     class Meta:

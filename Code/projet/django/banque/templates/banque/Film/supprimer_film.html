@@ -1,12 +1,13 @@
-{% extends 'index.html' %}
+{% extends '../index.html' %}
 {% load static %}
-{% block title %}Suppression d'un film{% endblock %}
+
+{% block title %}Suppression de film{% endblock %}
 {% block header %}Supprimer un film{% endblock %}
 
 {% block content %}
-    <p>Voulez-vous supprimer le film suivant {{Film}} ? ID : {{id}}</p>
-    <form method="post" action="/Film/supprimer_film/{{id}}/">
-        {% csrf_token %}
-        <input type="submit" value="Supprimer">
-    </form>
+<p>Es-tu sûr de vouloir supprimer le film "{{ film.titre }}" ?</p>
+<form method="post" action="">
+    {% csrf_token %}
+    <input type="submit" value="Confirmer la suppression">
+</form>
 {% endblock %}

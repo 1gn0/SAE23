@@ -1,22 +1,21 @@
 {% extends '../index.html' %}
 {% load static %}
-{% block title %}Liste des films de la catégorie{% endblock %}
-{% block header %}Films enregistrés{% endblock %}
+
+{% block title %}Tous les films{% endblock %}
+{% block header %}Liste des films{% endblock %}
 
 {% block content %}
-    <a class="btn_generic" href="/banque/Film/ajout_film/">Ajouter un enregistrement</a>    
-    <main class="flex_conteneur_all">
-        {% for donnees in liste %}
-            {% if donnees.categorie == id %}
-                <div class="flex_item_all">
-                    <div class="traitement">
-                        {{donnees.id}} : {{donnees|safe}}
-                        <a class="btn_generic" href="/banque/Film/modifier_film/{{donnees.id}}">Modifier</a>
-                        <a class="btn_generic" href="/banque/Film/supprimer_film/{{donnees.id}}">Supprimer</a>
-                        <a class="btn_generic" href="/banque/Film/stock_film/{{donnees.id}}">Stock</a>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </main>
+<a class="btn_generic" href="/banque/Film/ajout_film/{{id}}/">Ajouter un enregistrement</a>    
+<ul>
+    {% for film in liste %}
+    <li>
+        {{ film.titre }} ({{ film.annee_sortie }}) — {{ film.realisateur }}
+        [<a href="/banque/Film/modifier_film/{{ film.id }}/">Modifier</a>]
+        [<a href="/banque/Film/supprimer_film/{{ film.id }}/">Supprimer</a>]
+        [<a href="/banque/Film/details_film/{{ film.id }}/">Détails</a>]
+    </li>
+    {% empty %}
+    <li>Aucun film trouvé.</li>
+    {% endfor %}
+</ul>
 {% endblock %}

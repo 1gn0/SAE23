@@ -4,9 +4,21 @@
 {% block header %}Ajouter une catégorie{% endblock %}
 
 {% block content %}
-    <form method="post" action="/banque/Categorie_Film/traitement/{{id}}/">
+    <form method="post" action="">
         {% csrf_token %}
         {{ form.as_ul }}
         <input type="submit" value="Envoyer les données">
     </form>
+
+    {% if id %}
+        <p>Catégorie ajoutée avec l’ID : {{ id }}</p>
+    {% endif %}
+
+    {% if liste %}
+        <ul>
+            {% for obj in liste %}
+                <li>{{ obj.nom }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
