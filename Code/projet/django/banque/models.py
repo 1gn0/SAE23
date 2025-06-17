@@ -8,44 +8,46 @@ class Categorie_Film(models.Model):
         return self.nom
 
 
-class Film(models.Model):
-    titre = models.CharField(max_length=100)
-    annee_sortie = models.DateField()
-    affiche = models.ImageField(blank=True, null=True, upload_to='affiches/')
-    realisateur = models.CharField(blank=True, null=True, max_length=100)
-    categorie = models.ForeignKey("Categorie_Film", on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.titre} ({self.annee_sortie}) par {self.realisateur} - Catégorie : {self.categorie.nom}"
-
-
 class Acteur(models.Model):
     nom = models.CharField(max_length=100)
     prenom = models.CharField(max_length=100)
     age = models.IntegerField()
-    photos = models.ImageField(blank=True, null=True)
+    photos = models.ImageField(blank=True, null=True, upload_to='../photos/')
 
     def __str__(self):
-        return f"Son nom est : {self.nom}, prénom : {self.prenom}, âge : {self.age} ans, photo : {self.photos}."
+        return f"{self.prenom} {self.nom}, {self.age} ans"
+
+
+class Film(models.Model):
+    titre = models.CharField(max_length=100)
+    annee_sortie = models.DateField()
+    affiche = models.ImageField(blank=True, null=True, upload_to='../affiches/')
+    realisateur = models.CharField(blank=True, null=True, max_length=100)
+    synopsis = models.TextField(blank=True, null=True)
+    categorie = models.ForeignKey(Categorie_Film, on_delete=models.CASCADE)
+    acteurs = models.ManyToManyField(Acteur, related_name="films")
+
+    def __str__(self):
+        return f"{self.titre} ({self.annee_sortie.year})"
 
 
 class Personne(models.Model):
     pseudo = models.CharField(max_length=100)
     nom_prenom = models.CharField(max_length=100)
-    mail = models.CharField(max_length=100)
-    mot_de_passe = models.CharField(max_length=100)
+    mail = models.EmailField()
+    mot_de_passe = models.CharField(max_length=128)  
     type = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"Pseudo : {self.pseudo}, nom complet : {self.nom_prenom}"
+        return f"{self.pseudo} ({self.nom_prenom})"
 
 
 class Commentaire(models.Model):
-    film = models.CharField(max_length=100)
-    personnes = models.CharField(max_length=100)
-    note = models.CharField(max_length=100)
-    commentaire = models.CharField(max_length=100)
-    date = models.CharField(max_length=100)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE, related_name="commentaires")
+    personne = models.ForeignKey(Personne, on_delete=models.CASCADE, related_name="commentaires", null=True, blank=True)
+    note = models.IntegerField()
+    commentaire = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Film : {self.film}, personnes : {self.personnes}, note : {self.note}, commentaire : {self.commentaire}, date : {self.date}"
+        return f"{self.personne.pseudo} sur {self.film.titre} ({self.note}/5) : {self.commentaire[:30]}..."

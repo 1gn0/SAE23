@@ -10,10 +10,13 @@ urlpatterns = [
 
     # Acteur
     path('Acteur/modifier_acteur/<int:id>/', acteur_views.modifier, name="modifier_acteur"),
+    path('Acteur/sauvegarder_acteur/<int:id>/', acteur_views.sauvegarder_modif, name="sauvegarder_acteur"),
     path('Acteur/supprimer_acteur/<int:id>/', acteur_views.supprimer, name="supprimer_acteur"),
+    path('Acteur/suppression_acteur/<int:id>/', acteur_views.suppression, name="suppression_acteur"),
     path('Acteur/ajout_acteur/', acteur_views.ajout, name="ajout_acteur"),
     path('Acteur/affiche_acteur/<int:id>/', acteur_views.affiche_all, name="affiche_acteur"),
-    path('Acteur/traitement/', acteur_views.traitement, name="traitement_acteur"),
+    path('Acteur/traitement/<int:id>/', acteur_views.traitement, name="traitement_acteur"),
+    path('Acteur/all_acteur/', acteur_views.affiche_all, name="all_acteur"),
 
     # Catégorie
     path('Categorie_Film/modifier_categorie_film/<int:id>/', categorie_views.modifier, name="modifier_categorie_film"),
@@ -39,7 +42,8 @@ urlpatterns = [
     path('Film/affiche_film/<int:id>/', film_views.affiche_all, name="affiche_film"),
     path('Film/traitement/<int:id>/', film_views.traitement, name="traitem,ent_film"),
     path('Film/stock_film/<int:id>/', film_views.stock, name="stock_film"),
-    path('Film/details_film/<int:id>/', film_views.details, name="details_film"),
+    path('Film/details/<int:id>/', film_views.details_film, name='details_film'),
+
 
     # Personne
     path('Personne/modifier_personne/<int:id>/', personne_views.modifier, name="modifier_personne"),

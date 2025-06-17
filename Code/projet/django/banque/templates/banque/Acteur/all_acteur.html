@@ -10,9 +10,8 @@
             <div class="flex_item_all">
                 <div class="traitement">
                     {{donnees.id}} : {{donnees.nom|default:"Sans nom"}}
-                    <a class="btn_generic" href="/banque/Acteur/modifier_acteur/{{donnees.id}}">Modifier</a>
-                    <a class="btn_generic" href="/banque/Acteur/supprimer_acteur/{{donnees.id}}">Supprimer</a>
-                    <a class="btn_generic" href="/banque/Acteur/stock_acteur/{{donnees.id}}">Stock</a>
+                    <a class="btn_generic" href="/banque/Acteur/modifier_acteur/{{donnees.id}}/">Modifier</a>
+                    <a class="btn_generic" href="/banque/Acteur/supprimer_acteur/{{donnees.id}}/">Supprimer</a>
                 </div>
             </div>
         {% endfor %}

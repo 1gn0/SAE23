@@ -1,0 +1,32 @@
+{% extends '../index.html' %}
+{% block title %}Détails du film{% endblock %}
+
+{% block content %}
+<h1>{{ film.nom }}</h1>
+<p><strong>Année :</strong> {{ film.annee_sortie }}</p>
+<p><strong>Note :</strong> {{ film.note }}/5</p>
+<p><strong>Synopsis :</strong> {{ film.synopsis }}</p>
+
+<h2>Acteurs</h2>
+<ul>
+    {% for acteur in acteurs %}
+        <li>{{ acteur.nom }}</li>
+    {% empty %}
+        <li>Aucun acteur renseigné.</li>
+    {% endfor %}
+</ul>
+
+<h2>Commentaires</h2>
+<ul>
+    {% for commentaire in commentaires %}
+        <li>
+            <strong>{{ commentaire.personne.nom }}</strong> le {{ commentaire.date|date:"d/m/Y à H:i" }}<br>
+            {{ commentaire.texte }}
+        </li>
+    {% empty %}
+        <li>Aucun commentaire.</li>
+    {% endfor %}
+</ul>
+
+<a class="btn_generic" href="/banque/Categorie_Film/stock_categorie_film/{{donnees.id}}">Retour à la liste</a>
+{% endblock %}

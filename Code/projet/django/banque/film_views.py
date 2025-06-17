@@ -57,8 +57,15 @@ def stock(request, id):
     list_data = models.Film.objects.filter(categorie=categorie)
     return render(request, "banque/film/stock_film.html", {"liste": list_data, "categorie": categorie})
 
-def details(request, id):
+from . import models
+
+def details_film(request, id):
     film = get_object_or_404(models.Film, id=id)
-    list_acteurs = list(models.Acteur.objects.all())
-    list_commentaires = list(models.Commentaire.objects.all())
-    return render(request, "banque/film/details_film.html", {"film": film, "list_acteurs" : list_acteurs, "list_commentaires" : list_commentaires})
+    acteurs = film.acteurs.all()  
+    commentaires = models.Commentaire.objects.filter(film=film).order_by('-date')  
+
+    return render(request, 'banque/film/details_film.html', {
+        'film': film,
+        'acteurs': acteurs,
+        'commentaires': commentaires
+    })

@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends '../index.html' %}
 {% load static %}
 {% block title %}Ajout d'un acteur{% endblock %}
 {% block header %}Ajouter un acteur{% endblock %}
 
 {% block content %}
-    <form method="post" action="/Acteur/traitement/">
+    <form method="post" action="">
         {% csrf_token %}
         {{ form.as_ul }}
         <input type="submit" value="Envoyer les données">
