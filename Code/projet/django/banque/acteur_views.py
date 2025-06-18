@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,  redirect, get_object_or_404
 from .forms import ActeurForm
 from . import models
 
@@ -59,3 +59,16 @@ def suppression(request, id):
     list_data = list(models.Acteur.objects.all())
     return render(request, "banque/acteur/all_acteur.html", {"liste" : list_data})
 
+def ajouter_acteur_au_film(request, film_id):
+    film = get_object_or_404(models.Film, id=film_id)
+    if request.method == 'POST':
+        acteur_id = request.POST.get('acteur_id')
+        acteur = get_object_or_404(models.Acteur, id=acteur_id)
+        film.acteurs.add(acteur)
+        return redirect('details_film', id=film_id)
+    else:
+        acteurs_disponibles = models.Acteur.objects.exclude(id__in=film.acteurs.all())
+        return render(request, 'banque/acteur/ajouter_acteur_au_film.html', {
+            'film': film,
+            'acteurs_disponibles': acteurs_disponibles
+        })

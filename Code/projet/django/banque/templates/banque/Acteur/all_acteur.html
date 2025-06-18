@@ -1,19 +1,27 @@
 {% extends '../index.html' %}
 {% load static %}
 {% block title %}Liste des acteurs{% endblock %}
-{% block header %}Liste des acteurs enregistrées{% endblock %}
+{% block header %}Liste des acteurs enregistrés{% endblock %}
 
 {% block content %}
-    <a class="btn_generic" href="/banque/Acteur/ajout_acteur/">Ajouter un enregistrement</a>    
-    <main class="flex_conteneur_all">
-        {% for donnees in liste %}
-            <div class="flex_item_all">
-                <div class="traitement">
-                    {{donnees.id}} : {{donnees.nom|default:"Sans nom"}}
-                    <a class="btn_generic" href="/banque/Acteur/modifier_acteur/{{donnees.id}}/">Modifier</a>
-                    <a class="btn_generic" href="/banque/Acteur/supprimer_acteur/{{donnees.id}}/">Supprimer</a>
-                </div>
+<a class="btn" href="/banque/Acteur/ajout_acteur/">Ajouter un enregistrement</a>
+
+<div class="list-grid">
+    {% for acteur in liste %}
+    <div class="card">
+        <img src="{{ acteur.photo.url }}" alt="Photo de {{ acteur.nom|default:'Sans nom' }}">
+        <div class="card-content">
+            <div class="title">{{ acteur.nom|default:"Sans nom" }}</div>
+            <div class="subtitle">ID: {{ acteur.id }}</div>
+            <div class="btn-group" style="margin-top:10px;">
+                <a class="btn" href="/banque/Acteur/modifier_acteur/{{ acteur.id }}/">Modifier</a>
+                <a class="btn" href="/banque/Acteur/supprimer_acteur/{{ acteur.id }}/">Supprimer</a>
             </div>
-        {% endfor %}
-    </main>
+        </div>
+    </div>
+    {% empty %}
+    <p>Aucun acteur enregistré.</p>
+    {% endfor %}
+</div>
 {% endblock %}
+

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import FilmForm
+from .forms import FilmForm, CommentaireForm
 from . import models
 
 def ajout(request, id):
@@ -63,9 +63,14 @@ def details_film(request, id):
     film = get_object_or_404(models.Film, id=id)
     acteurs = film.acteurs.all()  
     commentaires = models.Commentaire.objects.filter(film=film).order_by('-date')  
-
+    notes_filtrees = [c.note for c in commentaires if c.note <= 5]
+    if notes_filtrees:
+        moyenne = sum(notes_filtrees) / len(notes_filtrees)
+    else:
+        moyenne = 0
     return render(request, 'banque/film/details_film.html', {
         'film': film,
         'acteurs': acteurs,
-        'commentaires': commentaires
+        'commentaires': commentaires,
+        'moyenne': moyenne
     })

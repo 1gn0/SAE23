@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from .forms import PersonneForm
 from . import models
 
@@ -54,3 +54,32 @@ def stock(request, id):
     film = models.Film.objects.get(id=id)
     list_data = list(models.Film.objects.all())
     return render(request, "banque/Film/stock_film.html", {"liste" : list_data, "id" : id})
+
+def login(request, film_id):
+    creation_form = PersonneForm()
+
+    if request.method == 'POST':
+        if 'login_submit' in request.POST:
+            mail = request.POST.get('mail')
+            mot_de_passe = request.POST.get('mot_de_passe')
+
+            try:
+                personne = Personne.objects.get(mail=mail, mot_de_passe=mot_de_passe)
+                return redirect(reverse('ajout_commentaire') + f'?personne_id={personne.id}&film_id={film_id}')
+            except Personne.DoesNotExist:
+                erreur_login = "Identifiants invalides."
+                return render(request, 'banque/personne/login.html', {
+                    'creation_form': creation_form,
+                    'film_id': film_id,
+                    'erreur_login': erreur_login
+                })
+
+        elif 'creation_submit' in request.POST:
+            creation_form = PersonneForm(request.POST)
+            if creation_form.is_valid():
+                personne = creation_form.save()
+                return redirect(reverse('ajout_commentaire') + f'?personne_id={personne.id}&film_id={film_id}')
+    return render(request, 'banque/personne/login.html', {
+        'creation_form': creation_form,
+        'film_id': film_id
+    })

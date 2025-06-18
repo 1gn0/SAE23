@@ -50,10 +50,8 @@ class PersonneForm(ModelForm):
 class CommentaireForm(ModelForm):
     class Meta:
         model = models.Commentaire
-        fields = ('film', 'personne', 'note', 'commentaire')  
+        fields = ('note', 'commentaire')  
         labels = {
-            'film': _('film'),
-            'personne': _('personne'),
             'note': _('note'),
-            'commentaire': _('commentaire'),
+            'commentaire': _('commentaire')
         }

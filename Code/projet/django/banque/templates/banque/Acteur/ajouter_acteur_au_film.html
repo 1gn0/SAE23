@@ -1,0 +1,17 @@
+{% block title %}Ajouter un acteur au film{% endblock %}
+{% block header %}Ajouter un acteur à {{ film.nom }}{% endblock %}
+
+{% block content %}
+  <form method="post" action="">
+    {% csrf_token %}
+    <label for="acteur_id">Choisissez un acteur :</label>
+    <select name="acteur_id" id="acteur_id" required>
+      {% for acteur in acteurs_disponibles %}
+        <option value="{{ acteur.id }}">{{ acteur.nom }} {{ acteur.prenom }}</option>
+      {% empty %}
+        <option disabled>Aucun acteur disponible à ajouter.</option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="Ajouter">
+  </form>
+{% endblock %}

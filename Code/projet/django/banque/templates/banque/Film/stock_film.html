@@ -5,11 +5,26 @@
 {% block header %}Films de la catégorie : {{ categorie.nom }}{% endblock %}
 
 {% block content %}
-<ul>
+<div class="list-grid">
     {% for film in liste %}
-    <li>{{ film.titre }} ({{ film.annee_sortie }}) — {{ film.realisateur }}</li>
+    <div class="card">
+        <div class="film-poster-container">
+            {% if film.affiche %}
+                <img src="{{ film.affiche }}" alt="Affiche de {{ film.titre }}" class="film-poster">
+            {% else %}
+                <div class="default-poster">
+                    <i class="fas fa-film"></i>
+                    {{ film.titre }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="card-content">
+            <div class="title">{{ film.titre }}</div>
+            <div class="subtitle">{{ film.annee_sortie }} — {{ film.realisateur }}</div>
+        </div>
+    </div>
     {% empty %}
-    <li>Aucun film trouvé dans cette catégorie.</li>
+    <p>Aucun film trouvé dans cette catégorie.</p>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}

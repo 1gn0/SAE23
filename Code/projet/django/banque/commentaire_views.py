@@ -1,58 +1,78 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CommentaireForm
 from . import models
 
-from .models import Commentaire
+from .models import Commentaire, Film, Personne
 # Create your views here.
 
 def ajout(request):
-    
-    if request.method == "POST": 
-        form = CommentaireForm(request)
-        if form.is_valid():
-            Commentaire= form.save() 
-            list_data = list(models.Commentaire.objects.all())
-            return render(request, "banque/Commentaire/affiche_commentaire.html", {"liste" : list_data})
-        else:
-            return render(request,"banque/Commentaire/ajout_commentaire.html",{"form": form})
-    else :
-        form = CommentaireForm() 
-        return render(request,"banque/Commentaire/commentaire.html",{"form" : form})
-    
-def traitement(request, id):
-    lform = CommentaireForm(request.POST)
-    if lform.is_valid():
-        commentaire = lform.save()
-        list_data = list(models.Commentaire.objects.all())
-        return render(request, "banque/Commentaire/all_commentaire.html", {"liste" : list_data})
-    else:
-        return render(request,"banque/Commentaire/ajout_commentaire.html",{"form": lform})
+    personne_id = request.GET.get('personne_id')
+    film_id = request.GET.get('film_id')
 
-def affiche_all(request):
-    list_data = list(models.Commentaire.objects.all())
-    return render(request, "banque/Commentaire/all_commentaire.html", {"liste" : list_data})
+    if not personne_id or not film_id:
+        return redirect('index')
+
+    personne = get_object_or_404(Personne, id=personne_id)
+    film = get_object_or_404(Film, id=film_id)
+
+    if request.method == 'POST':
+        form = CommentaireForm(request.POST)
+        if form.is_valid():
+            commentaire = form.save(commit=False)
+            commentaire.personne = personne
+            commentaire.film = film
+            commentaire.save()
+            return redirect('details_film', id=film.id)
+    else:
+        form = CommentaireForm()
+
+    return render(request, 'banque/commentaire/ajout_commentaire.html', {
+        'form': form,
+        'personne': personne,
+        'film': film,
+    })
+
 
 def modifier(request, id):
-    commentaire = models.Commentaire.objects.get(id=id)
-    lform = CommentaireForm(commentaire.__dict__)
-    return render(request, "banque/Commentaire/modifier_commentaire.html", {"lform" : lform, "id" : id})
+    commentaire = get_object_or_404(Commentaire, id=id)
+    
+    if request.method == 'POST':
+        mail = request.POST.get('mail')
+        mdp = request.POST.get('mot_de_passe')
+        
+        if commentaire.personne.mail == mail and commentaire.personne.mot_de_passe == mdp:
+            form = CommentaireForm(request.POST, instance=commentaire)
+            if form.is_valid():
+                form.save()
+                return redirect('details_film', id=commentaire.film.id)
+        else:
+            return render(request, 'banque/commentaire/modifier_commentaire.html', {
+                'form': CommentaireForm(instance=commentaire),
+                'erreur': "Accès refusé, identifiants incorrects.",
+                'id': id
+            })
+    else:
+        form = CommentaireForm(instance=commentaire)
+        return render(request, 'banque/commentaire/modifier_commentaire.html', {
+            'form': form,
+            'id': id
+        })
 
-def sauvegarder_modif(request, id):
-    n_form = CommentaireForm(request.POST)
-    if n_form.is_valid():
-        sauvegarde = n_form.save(commit=False)
-        sauvegarde.id = id
-        sauvegarde.save()
-        list_data = list(models.Magasin.objects.all())
-        return render(request, "banque/Commentaire/all_commentaire.html", {"liste" : list_data})
 
 def supprimer(request, id):
-    commentaire = models.Commentaire.objects.get(id=id)
-    lform = CommentaireForm(commentaire.__dict__)
-    return render(request, "banque/Commentaire/supprimer_commentaire.html", {"lform" : lform, "id" : id})
+    commentaire = get_object_or_404(Commentaire, id=id)
 
-def stock(request, id):
-    commentaire = models.Commentaire.objects.get(id=id)
-    list_data = list(models.Commentaire.objects.all())
-    return render(request, "banque/Commentaire/stock_commentaire.html", {"liste" : list_data, "id" : id})
+    if request.method == 'POST':
+        mail = request.POST.get('mail')
+        mdp = request.POST.get('mot_de_passe')
 
+        if commentaire.personne.mail == mail and commentaire.personne.mot_de_passe == mdp:
+            film_id = commentaire.film.id
+            commentaire.delete()
+            return redirect('details_film', id=film_id)
+        else:
+            return render(request, 'banque/commentaire/supprimer_commentaire.html', {
+                'erreur': "Identifiants invalides, suppression refusée.",
+                'id': id
+            })
+    return render(request, 'banque/commentaire/supprimer_commentaire.html', {'id': id})

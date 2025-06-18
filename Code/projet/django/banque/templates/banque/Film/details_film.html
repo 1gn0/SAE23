@@ -3,11 +3,14 @@
 
 {% block content %}
 <h1>{{ film.nom }}</h1>
-<p><strong>Année :</strong> {{ film.annee_sortie }}</p>
-<p><strong>Note :</strong> {{ film.note }}/5</p>
-<p><strong>Synopsis :</strong> {{ film.synopsis }}</p>
+<p><strong>Date de sortie :</strong> {{ film.annee_sortie }}</p>
+
+
+
+<p><strong>Note :</strong> {{ moyenne }}/5</p>
 
 <h2>Acteurs</h2>
+<a href="{% url 'ajouter_acteur_au_film' film.id %}" class="btn btn-primary">Ajouter acteur</a>
 <ul>
     {% for acteur in acteurs %}
         <li>{{ acteur.nom }}</li>
@@ -17,16 +20,24 @@
 </ul>
 
 <h2>Commentaires</h2>
+<a class="btn_generic" href="/banque/Commentaire/login/{{film.id}}/">Ajouter un commentaire</a>
 <ul>
     {% for commentaire in commentaires %}
         <li>
-            <strong>{{ commentaire.personne.nom }}</strong> le {{ commentaire.date|date:"d/m/Y à H:i" }}<br>
-            {{ commentaire.texte }}
+            <strong>{{ commentaire.personne.pseudo }}</strong> 
+            <em>le {{ commentaire.date|date:"d/m/Y à H:i" }}</em><br>
+            {% if commentaire.note %}
+                Note : {{ commentaire.note }}/5<br>
+            {% endif %}
+            {{ commentaire.commentaire }}
+            <a class="btn_generic" href="/banque/Commentaire/supprimer_commentaire/{{commentaire.id}}/">Supprimer</a>
+            <a class="btn_generic" href="/banque/Commentaire/modifier_commentaire/{{commentaire.id}}/">Modifier</a>
         </li>
     {% empty %}
         <li>Aucun commentaire.</li>
     {% endfor %}
 </ul>
+
 
 <a class="btn_generic" href="/banque/Categorie_Film/stock_categorie_film/{{donnees.id}}">Retour à la liste</a>
 {% endblock %}

@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import categorie_views
 from . import acteur_views
 from . import film_views
@@ -32,8 +34,7 @@ urlpatterns = [
     path('Commentaire/modifier_commentaire/<int:id>/', commentaire_views.modifier, name="modifier_commentaire"),
     path('Commentaire/supprimer_commentaire/<int:id>/', commentaire_views.supprimer, name="supprimer_commentaire"),
     path('Commentaire/ajout_commentaire/', commentaire_views.ajout, name="ajout_commentaire"),
-    path('Commentaire/affiche_commentaire/<int:id>/', commentaire_views.affiche_all, name="affiche_commentaire"),
-    path('Commentaire/traitement/', commentaire_views.traitement, name="traitement_commentaire"),
+    path('Commentaire/login/<int:film_id>/', personne_views.login, name="login_commentaire"),
 
     # Film
     path('Film/modifier_film/<int:id>/', film_views.modifier, name="modifier_film"),
@@ -43,6 +44,7 @@ urlpatterns = [
     path('Film/traitement/<int:id>/', film_views.traitement, name="traitem,ent_film"),
     path('Film/stock_film/<int:id>/', film_views.stock, name="stock_film"),
     path('Film/details/<int:id>/', film_views.details_film, name='details_film'),
+    path('film/<int:film_id>/ajouter_acteur_au_film/', acteur_views.ajouter_acteur_au_film, name='ajouter_acteur_au_film'),
 
 
     # Personne
@@ -51,7 +53,11 @@ urlpatterns = [
     path('Personne/ajout_personne/', personne_views.ajout, name="ajout_personne"),
     path('Personne/affiche_personne/<int:id>/', personne_views.affiche_all, name="affiche_personne"),
     path('Personne/traitement/', personne_views.traitement, name="traitement_personne"),
+    
 
     # Index
     path('index/', views.index, name="index"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

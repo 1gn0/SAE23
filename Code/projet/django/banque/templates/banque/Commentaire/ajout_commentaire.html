@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+{% extends '../index.html' %}
 {% load static %}
 {% block title %}Ajout d'un commentaire{% endblock %}
 {% block header %}Ajouter un commentaire{% endblock %}
 
 {% block content %}
-    <form method="post" action="/Commentaire/traitement/">
-        {% csrf_token %}
-        {{ form.as_ul }}
-        <input type="submit" value="Envoyer les données">
-    </form>
+<form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_ul }}
+    <input type="submit" value="Envoyer les données">
+</form>
 {% endblock %}
