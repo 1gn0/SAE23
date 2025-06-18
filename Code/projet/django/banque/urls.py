@@ -1,5 +1,4 @@
 from django.urls import path
-from django.conf import settings
 from django.conf.urls.static import static
 from . import categorie_views
 from . import acteur_views
@@ -38,6 +37,7 @@ urlpatterns = [
 
     # Film
     path('Film/modifier_film/<int:id>/', film_views.modifier, name="modifier_film"),
+    path('Film/sauvegarder_film/<int:id>/', film_views.sauvegarder_modif, name="sauvegarder_film"),
     path('Film/supprimer_film/<int:id>/', film_views.supprimer, name="supprimer_film"),
     path('Film/ajout_film/<int:id>/', film_views.ajout, name="ajout_film"),
     path('Film/affiche_film/<int:id>/', film_views.affiche_all, name="affiche_film"),
@@ -58,6 +58,3 @@ urlpatterns = [
     # Index
     path('index/', views.index, name="index"),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

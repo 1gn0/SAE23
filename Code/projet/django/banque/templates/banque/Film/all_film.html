@@ -5,17 +5,32 @@
 {% block header %}Liste des films{% endblock %}
 
 {% block content %}
-<a class="btn_generic" href="/banque/Film/ajout_film/{{id}}/">Ajouter un enregistrement</a>    
-<ul>
+<a class="btn_generic" href="/banque/Film/ajout_film/{{id}}/">Ajouter un enregistrement</a>
+
+<div class="film-grid">
     {% for film in liste %}
-    <li>
-        {{ film.titre }} ({{ film.annee_sortie }}) — {{ film.realisateur }}
-        [<a href="/banque/Film/modifier_film/{{ film.id }}/">Modifier</a>]
-        [<a href="/banque/Film/supprimer_film/{{ film.id }}/">Supprimer</a>]
-        [<a class="btn_generic" href="/banque/Film/details/{{ film.id }}/">Détails</a>]
-    </li>
+    <div class="film-card">
+        <div class="poster-container">
+            {% if film.affiche %}
+                <img src="{{ film.affiche.url }}" alt="Affiche de {{ film.titre }}" class="film-poster">
+            {% else %}
+                <div class="film-poster placeholder">
+                    <span>Aucune affiche</span>
+                </div>
+            {% endif %}
+        </div>
+        <div class="film-info">
+            <h3>{{ film.titre }}</h3>
+            <p>{{ film.annee_sortie }} — {{ film.realisateur }}</p>
+            <div class="btn-group">
+                <a href="/banque/Film/modifier_film/{{ film.id }}/" class="btn_generic">Modifier</a>
+                <a href="/banque/Film/supprimer_film/{{ film.id }}/" class="btn_generic">Supprimer</a>
+                <a href="/banque/Film/details/{{ film.id }}/" class="btn_generic">Détails</a>
+            </div>
+        </div>
+    </div>
     {% empty %}
-    <li>Aucun film trouvé.</li>
+    <p>Aucun film trouvé.</p>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}

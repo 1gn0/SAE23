@@ -6,19 +6,18 @@ from .models import Acteur
 # Create your views here.
 
 def ajout(request):
-    
     if request.method == "POST": 
-        form = ActeurForm(request.POST)
+        form = ActeurForm(request.POST, request.FILES)  # ← faut rajouter request.FILES ici
         if form.is_valid():
-            Acteur= form.save() 
+            form.save() 
             list_data = list(models.Acteur.objects.all())
-            return render(request, "banque/acteur/affiche_acteur.html", {"liste" : list_data})
+            return render(request, "banque/acteur/affiche_acteur.html", {"liste": list_data})
         else:
-            return render(request,"banque/acteur/ajout_acteur.html",{"form": form, "id" : id})
-    else :
+            return render(request, "banque/acteur/ajout_acteur.html", {"form": form})
+    else:
         form = ActeurForm() 
-        return render(request,"banque/acteur/ajout_acteur.html",{"form" : form, "id" : id})
-        
+        return render(request, "banque/acteur/ajout_acteur.html", {"form": form})
+
 
 def traitement(request, id):
     Acteur = models.Acteur.objects.get(id=id)

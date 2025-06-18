@@ -41,7 +41,7 @@ def sauvegarder_modif(request, id):
     form = FilmForm(request.POST, request.FILES, instance=film)
     if form.is_valid():
         form.save()
-        return redirect(f"/banque/Film/stock_film/{film.categorie.id}/")
+        return redirect(f"/banque/Categorie_Film/stock_categorie_film/{film.categorie.id}/")
     return render(request, "banque/film/modifier_film.html", {"form": form, "id": id})
 
 def supprimer(request, id):
@@ -49,7 +49,7 @@ def supprimer(request, id):
     if request.method == "POST":
         cat_id = film.categorie.id
         film.delete()
-        return redirect(f"/banque/Film/stock_film/{cat_id}/")
+        return redirect(f"/banque/Categorie_Film/stock_categorie_film/{cat_id}/")
     return render(request, "banque/film/supprimer_film.html", {"film": film})
 
 def stock(request, id):

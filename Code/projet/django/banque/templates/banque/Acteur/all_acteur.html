@@ -1,5 +1,6 @@
 {% extends '../index.html' %}
 {% load static %}
+
 {% block title %}Liste des acteurs{% endblock %}
 {% block header %}Liste des acteurs enregistrés{% endblock %}
 
@@ -9,7 +10,11 @@
 <div class="list-grid">
     {% for acteur in liste %}
     <div class="card">
-        <img src="{{ acteur.photo.url }}" alt="Photo de {{ acteur.nom|default:'Sans nom' }}">
+        {% if acteur.photos %}
+            <img src="{{ acteur.photos.url }}" alt="Photo de {{ acteur.nom|default:'Sans nom' }}">
+        {% else %}
+            <div class="default-poster">Pas de photo</div>
+        {% endif %}
         <div class="card-content">
             <div class="title">{{ acteur.nom|default:"Sans nom" }}</div>
             <div class="subtitle">ID: {{ acteur.id }}</div>
@@ -24,4 +29,3 @@
     {% endfor %}
 </div>
 {% endblock %}
-
